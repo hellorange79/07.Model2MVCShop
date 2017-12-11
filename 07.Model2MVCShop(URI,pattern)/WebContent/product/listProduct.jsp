@@ -2,26 +2,9 @@
 
 <%@ page contentType="text/html; charset=euc-kr" %>
 
-<%--@page import="com.model2.mvc.common.util.CommonUtil"--%>
-<%--@page import="com.model2.mvc.view.product.ListProductAction"--%>
-<%--@page import="com.model2.mvc.service.product.vo.*"--%>
-<%--@page import="com.model2.mvc.common.*"--%>
-<%--@page import="java.util.*"--%>
-<%--@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"--%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
 "http://www.w3.org/TR/html4/loose.dtd">
-<%--
-	List<ProductVO> list =(List<ProductVO>)request.getAttribute("list");
-	String menu = request.getParameter("menu");
-	Page resultPage=(Page)request.getAttribute("resultPage");
-	Search search=(Search)request.getAttribute("search");
-	//==> null 을 ""(nullString)으로 변경
-	String searchCondition = CommonUtil.null2str(search.getSearchCondition());
-	String searchKeyword = CommonUtil.null2str(search.getSearchKeyword());
-	
-	
-	--%>
+
 	
 
 <html>
@@ -44,8 +27,7 @@ function fncGetUserList(currentPage) {
 
 	<div style="width: 98%; margin-left: 10px;">
 
-		<form name="detailForm" action="/product/listProduct/"
-			method="get">
+		<form name="detailForm" action="/product/listProduct?menu=${param.menu}"	method="post">
 
 			<table width="100%" height="37" border="0" cellpadding="0"
 				cellspacing="0">
@@ -57,7 +39,7 @@ function fncGetUserList(currentPage) {
 						<table width="100%" border="0" cellspacing="0" cellpadding="0">
 							<tr>
 								<td width="93%" class="ct_ttl01">
-								<c:if test="${param.menu eq 'manage'}" > 상품관리조회</td></c:if>
+								<c:if test="${param.menu eq 'manage'}"> 상품관리조회</td></c:if>
 								<c:if test="${param.menu eq 'search'}"> 상품목록조회 </td></c:if>
 							</tr>
 						</table>
@@ -123,29 +105,7 @@ function fncGetUserList(currentPage) {
 				<tr>
 					<td colspan="11" bgcolor="808285" height="1"></td>
 				</tr>
-				<%--
-					int no = list.size();
-					for (int i = 0; i < list.size(); i++) {
-						ProductVO vo = (ProductVO) list.get(i);
 				
-				<tr class="ct_list_pop">
-					<td align="center"><%=i+1%></td>
-					<td></td>
-					<td align="left">
-						<%
-							if ("manage".equals(menu)) {
-						%> <a
-						href="/updateProductView.do?menu=<%=menu%>&prodNo=<%=vo.getProdNo()%>"><%=vo.getProdName()%></a>
-					</td>
-
-					<%
-						} else if("search".equals(menu)) {
-					%>
-					<a href="/getProduct.do?menu=<%=menu%>&prodNo=<%=vo.getProdNo()%>"><%=vo.getProdName()%></a>
-					</td>
-					<%
-						}
-					--%>
 					<c:set var="i" value="0"/>
 					<c:forEach var="product" items="${list}">
 					<c:set var="i" value="${i+1}"/>
@@ -185,27 +145,12 @@ function fncGetUserList(currentPage) {
 				</c:forEach>
 			</table>
 
-			<table width="100%" border="0" cellspacing="0" cellpadding="0"
-				style="margin-top: 10px;">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0"	style="margin-top: 10px;">
 				<tr>
 					<td align="center">
 					 <input type="hidden" id="currentPage" name="currentPage" value=""/>
-			<%-- if( resultPage.getCurrentPage() <= resultPage.getPageUnit() ){ 
-					◀ 이전
-			<% }else{ %>
-					<a href="javascript:fncgetProductList('<%=resultPage.getCurrentPage()-1%>')">◀ 이전</a>
-			<% } %>
-
-			<%	for(int i=resultPage.getBeginUnitPage();i<= resultPage.getEndUnitPage() ;i++){	%>
-					<a href="javascript:fncgetProductList('<%=i %>');"><%=i %></a>
-			<% 	}  %>
-	
-			<% if( resultPage.getEndUnitPage() >= resultPage.getMaxPage() ){ %>
-					이후 ▶
-			<% }else{ %>
-					<a href="javascript:fncgetProductList('<%=resultPage.getEndUnitPage()+1%>')">이후 ▶</a>
-			<% } --%>
-			<jsp:include page="../common/pageNavigator.jsp"/>
+		
+						<jsp:include page="../common/pageNavigator.jsp"/>
 					</td>
 				</tr>
 			</table>
