@@ -1,17 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
    pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%-- 
 
-<% 
-	product product = (product)request.getAttribute("product"); 
-   	PurchaseVO purchaseVO=(PurchaseVO)request.getAttribute("purchaseVO");
-	String userId=((User)session.getAttribute("user")).getUserId();
-	int prodNo= Integer.parseInt(request.getParameter("prodNo"));
-	
-	
-%>
- --%>
 
 <html>
 <head>

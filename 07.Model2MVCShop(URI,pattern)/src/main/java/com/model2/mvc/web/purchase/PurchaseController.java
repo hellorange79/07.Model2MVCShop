@@ -26,6 +26,7 @@ import com.model2.mvc.service.purchase.PurchaseService;
 import com.model2.mvc.service.user.UserService;
 
 @Controller
+@RequestMapping("/purchase/*")
 public class PurchaseController {
 	
 	
@@ -53,7 +54,7 @@ public class PurchaseController {
 	int pageSize;
 	
 	@RequestMapping(value="addPurchase", method=RequestMethod.POST)
-	public String addPurchaseView(@RequestParam("prodNo") int prodNo, Model model) 
+	public String addPurchase(@RequestParam("prodNo") int prodNo, Model model) 
 			throws Exception{
 		
 		System.out.println("/purchase/addPurchaseView : POST");
@@ -62,10 +63,10 @@ public class PurchaseController {
 		
 		model.addAttribute("product",product);
 		
-		return "forward:/purchase/addPurchaseViewAction.jsp";
+		return "forward:/purchase/addPurchaseView.jsp";
 	}
 	
-	@RequestMapping("/addPurchase.do")
+	@RequestMapping()
 	public String addPurchase(
 			@ModelAttribute("purchase") Purchase purchase,
 			@ModelAttribute("product") Product product,
