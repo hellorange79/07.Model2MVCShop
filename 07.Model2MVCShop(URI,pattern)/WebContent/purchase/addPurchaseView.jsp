@@ -17,6 +17,7 @@
 <script type="text/javascript">
 
 function fncAddPurchase() {
+	document.addPurchase.action='/purchase/addPurchase';
 	document.addPurchase.submit();
 }
 
@@ -99,7 +100,7 @@ function fncAddPurchase() {
 	<tr>
 		<td width="104" class="ct_write">가격</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${product.getPrice()}</td>
+		<td class="ct_write01">${product.price}</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -107,7 +108,7 @@ function fncAddPurchase() {
 	<tr>
 		<td width="104" class="ct_write">등록일자</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${product.getRegDate()}</td>
+		<td class="ct_write01">${product.regDate}</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>

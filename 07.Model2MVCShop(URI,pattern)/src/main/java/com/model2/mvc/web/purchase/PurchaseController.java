@@ -53,27 +53,28 @@ public class PurchaseController {
 	@Value("#{commonProperties['pageSize']}")
 	int pageSize;
 	
-	@RequestMapping(value="addPurchase", method=RequestMethod.POST)
+	@RequestMapping(value="addPurchase", method=RequestMethod.GET)
 	public String addPurchase(@RequestParam("prodNo") int prodNo, Model model) 
 			throws Exception{
 		
-		System.out.println("/purchase/addPurchaseView : POST");
+		System.out.println("/purchase/addPurchaseView : GET");
 		
 		Product product= productService.getProduct(prodNo);
+		System.out.println("=====> "+product);
 		
 		model.addAttribute("product",product);
 		
 		return "forward:/purchase/addPurchaseView.jsp";
 	}
 	
-	@RequestMapping()
+	@RequestMapping(value="addPurchase", method=RequestMethod.POST)
 	public String addPurchase(
 			@ModelAttribute("purchase") Purchase purchase,
 			@ModelAttribute("product") Product product,
 			@RequestParam("prodNo") int prodNo, Model model, 
 			@RequestParam("userId") String userId) throws Exception{
 		
-		System.out.println("/addPurchase.do");
+		System.out.println("/purchase/addPurchase : POST");
 		
 		productService.getProduct(prodNo);
 		product.setProTranCode("1");
@@ -87,20 +88,20 @@ public class PurchaseController {
 		purchaseService.addPurchase(purchase);
 		
 		
-		System.out.println("addPurchase.do ==>"+purchase);
+		System.out.println("/purchase/addPurchase : POST ==>"+purchase);
 		
 		//System.out.println(purchase);
 		return "forward:/purchase/addPurchaseAction.jsp";
 	}
 	
-	@RequestMapping("/listPurchase.do")
+	@RequestMapping(value="listPurchase")
 	public String getPurchaseList(
 			@ModelAttribute("search") Search search,
 			Model model,
 			HttpServletRequest request)throws Exception{
 		
 		
-		System.out.println("/listPurchase.do");
+		System.out.println("/purchase/listPurchase : GET / POST");
 		
 		HttpSession session = request.getSession();
 		String userId =((User)session.getAttribute("user")).getUserId();
@@ -127,11 +128,11 @@ public class PurchaseController {
 		return "forward:/purchase/listPurchase.jsp";
 	}
 	
-	@RequestMapping("/getPurchase.do")
+	@RequestMapping(value="getPurchase", method=RequestMethod.GET)
 	public String getPurchase2(@RequestParam("tranNo") int tranNo,Model model)
 			throws Exception{
 		
-		System.out.println("/getPurchase2.do");
+		System.out.println("/purchase/getPurchase2 : GET ");
 		
 		Purchase purchase = purchaseService.getPurchase2(tranNo);
 				
@@ -142,10 +143,10 @@ public class PurchaseController {
 	}
 	
 
-	@RequestMapping("/updatePurchaseView.do")
+	@RequestMapping(value="updatePurchase", method=RequestMethod.GET)
 	public String updatePurchaseView(@RequestParam("tranNo") int tranNo, Model model )throws Exception{
 		
-		System.out.println("/updatePurchaseView.do");
+		System.out.println("/purchase/updatePurchaseView : GET");
 		
 		Purchase purchase =purchaseService.getPurchase2(tranNo);
 		
@@ -156,27 +157,27 @@ public class PurchaseController {
 		
 	}
 	
-	@RequestMapping("/updatePurchase.do")
+	@RequestMapping(value="updatePurchase",method=RequestMethod.POST)
 	public String updatePurchase(@ModelAttribute("purchase") Purchase purchase)throws Exception{
 		
-		System.out.println("/updatePurchase.do");
+		System.out.println("/purchase/updatePurchase : POST");
 		
 		purchaseService.updatePurchase(purchase);
 	
 		System.out.println("¼öÁ¤=====>  "+purchase);
 		
-		return "redirect:/getPurchase.do?tranNo="+purchase.getTranNo();
+		return "redirect:/purchase/getPurchase?tranNo="+purchase.getTranNo();
 	}
 	
 	
-	@RequestMapping("/updateTranCode.do")
+	@RequestMapping(value="updateTranCode",method=RequestMethod.GET)
 	public String updateTranCode(
 			@ModelAttribute("purchase") Purchase purchase,
 			@RequestParam("tranNo") int tranNo,
 			@RequestParam("tranCode") String tranCode,
 			Model model)throws Exception{
 		
-		System.out.println("/updateTranCode.do");
+		System.out.println("/purchase/updateTranCode : GET");
 		
 		purchase = purchaseService.getPurchase2(tranNo);
 		purchase.setTranCode(tranCode);
@@ -188,11 +189,11 @@ public class PurchaseController {
 		
 		model.addAttribute("tranCode", tranCode);
 		
-		return "redirect:/listPurchase.do?";
+		return "redirect:/purchase/listPurchase?";
 		
 	}
 	
-	@RequestMapping("/updateTranCodeByProd.do")
+	@RequestMapping(value="updateTranCodeByProd", method=RequestMethod.GET)
 	public String updateTranCodeByProd(			
 			@ModelAttribute("purchase") Purchase purchase,
 			@ModelAttribute("product") Product product,
@@ -221,7 +222,7 @@ public class PurchaseController {
 		model.addAttribute("product", product);
 		model.addAttribute("purchase", purchase);
 		
-		return "redirect:/listProduct.do?prodNo="+prodNo;
+		return "forward:/product/listProduct?prodNo="+prodNo+"&menu=manage";
 	}
 	
 	
