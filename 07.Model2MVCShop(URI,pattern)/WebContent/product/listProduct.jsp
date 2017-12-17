@@ -61,7 +61,7 @@ function fncGetUserList(currentPage) {
 							<option value="1" ${! empty searchCondition.equals && searchCondition.equals==1 ? "selected" : "" }>상품명</option>
 							<option value="2" ${! empty searchCondition.equals && searchCondition.equals==2 ? "selected" : "" }>상품가격</option>
 					</select> <input type="text" name="searchKeyword"
-						value="${! empty search.searchKeyword ? search.searchKeyword : "" }" class="ct_input_g"
+						value="${! empty search.searchKeyword ? search.searchKeyword : '' }" class="ct_input_g"
 						style="width: 200px; height: 19px" /></td>
 
 					<td align="right" width="70">
